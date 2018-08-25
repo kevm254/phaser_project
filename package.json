@@ -1,0 +1,20 @@
+{
+  "name": "phaserProj",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "6",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.7.0",
+    "copy-webpack-plugin": "^4.5.2",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.0.0"
+  },
+  "dependencies": {
+    "phaser": "^3.11.0"
+  },
+  "scripts": {
+    "serve": "yarn run webpack-dev-server"
+  }
+}
