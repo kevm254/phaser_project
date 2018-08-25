@@ -3,29 +3,29 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
+    // Input Files
     entry: {
-        app: './src/index.js'
-
+        app: './src/index.ts'
     },
 
+    // Output Files
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'app.bundle.js'
     },
 
+    devtool: 'inline-source-map',
+
+
+
     module: {
         rules: [
-            {
-                test: /\.js$/,
-                include: path.resolve(__dirname, 'src/'),
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env']
-                    }
-                }
-            }
+            { test: /\.ts$/, loader: 'ts-loader', exclude: '/node_modules/' },
         ]
+    },
+
+    resolve: {
+      extensions: ['./tsx', '.ts', '.js']
     },
 
     devServer: {

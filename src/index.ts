@@ -1,6 +1,8 @@
 import 'phaser';
+
 import PreloadScene from './scenes/preload.scene';
-var gameConfig = {
+
+const gameConfig: GameConfig = {
     width: 1024,
     height: 768,
     backgroundColor: '#0072bc',
@@ -12,4 +14,6 @@ var gameConfig = {
     },
     scene: PreloadScene
 };
+
 new Phaser.Game(gameConfig);
+
