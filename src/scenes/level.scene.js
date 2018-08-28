@@ -1,11 +1,3 @@
-// import Player from '../sprites/player';
-// import Enemy from '../sprites/enemy';
-// import Slime from '../sprites/slime';
-// import Coins from '../sprites/coins';
-// import Meat from '../sprites/meat';
-// import Potion from '../sprites/potion';
-// import Jug from '../sprites/jug';
-// import Heart from '../sprites/heart';
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -16,24 +8,70 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+import Player from '../sprites/player.sprite';
 var Level = /** @class */ (function (_super) {
     __extends(Level, _super);
     function Level() {
-        return _super.call(this, {
+        var _this = _super.call(this, {
             key: 'Level'
         }) || this;
+        _this.spawnPoints = [];
+        return _this;
     }
     Level.prototype.create = function () {
-        this.cameras.main.setBackgroundColor(0x2a0503);
         var load = this.registry.get('load');
-        // this.music = this.sound.add(`${load}Music`);
-        // this.music.play();
+        this.cameras.main.setBackgroundColor(0x2a0503);
+        this.setupMusic();
         this.map = this.make.tilemap({ key: load + "Map" });
         this.tileset = this.map.addTilesetImage('tiles');
         this.layer = this.map.createStaticLayer('tileLayer', this.tileset, 0, 0);
         // this.layer.setCollisionByProperty({ collide: true });
+        this.convertObjects();
+        var spawn = this.spawnPoints[this.registry.get('spawn')];
+        alert(JSON.stringify(spawn));
+        this.player = new Player({
+            scene: this,
+            x: spawn.x,
+            y: spawn.y
+        });
+        this.newGame();
     };
     Level.prototype.update = function () {
+    };
+    /* ***************** */
+    // General Methods
+    /* ***************** */
+    Level.prototype.setupMusic = function () {
+        var load = this.registry.get('load');
+        // this.music = this.sound.add(`${load}Music`);
+        this.music = this.sound.add('testMusic');
+        this.music.play(null, { loop: true });
+    };
+    Level.prototype.convertObjects = function () {
+        var _this = this;
+        var objects = this.map.getObjectLayer('objects');
+        var level = this.registry.get('load');
+        console.dir(objects);
+        objects.objects.forEach(function (object) {
+            if (object.type === 'spawn') {
+                _this.spawnPoints[object.name] = {
+                    x: object.x + 8,
+                    y: object.y + 8
+                };
+            }
+        });
+    };
+    Level.prototype.newGame = function () {
+        var _this = this;
+        this.registry.set('newGame', false);
+        this.text = this.add.text(this.player.x, this.player.y - 32, 'Press Arrow keys to move');
+        this.text.setOrigin(.5);
+        this.time.addEvent({
+            delay: 6000,
+            callback: function () {
+                _this.text.destroy();
+            }
+        });
     };
     return Level;
 }(Phaser.Scene));

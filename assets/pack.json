@@ -1,4 +1,4 @@
-{ 
+{
     "Preload": {
         "files": [
             {
@@ -171,8 +171,12 @@
                 "type": "audio",
                 "key": "winMusic",
                 "url": "assets/music/25-Finale.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "testMusic",
+                "url": "assets/music/20-GameOver.mp3"
             }
-
         ]
     },
     "meta": {

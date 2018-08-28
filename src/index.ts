@@ -6,8 +6,8 @@ import HUD from './scenes/hud.scene';
 
 const gameConfig: GameConfig = {
     type: Phaser.AUTO,
-    width: 1024,
-    height: 768,
+    width: 640,
+    height: 480,
     backgroundColor: '#0072bc',
     physics: {
         default: 'arcade',

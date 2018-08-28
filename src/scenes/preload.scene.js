@@ -17,12 +17,10 @@ var Preload = /** @class */ (function (_super) {
         return _super.call(this, { key: 'Preload' }) || this;
     }
     Preload.prototype.preload = function () {
-        // create background and prepare loading bar
         this.createBackground(0x2a0503);
         this.loadFullBar();
     };
     Preload.prototype.create = function () {
-        // this.add.text(100, 100, "You got my honey", { fontSize: '32px', fill: '#fff'});
         this.initRegistry();
         this.launchScenes();
     };
@@ -63,7 +61,7 @@ var Preload = /** @class */ (function (_super) {
             _this.fullBar.destroy();
             _this.loadText.destroy();
         }, this);
-        // this.load.pack('Preload', 'assets/pack.json', 'Preload');
+        this.load.pack('Preload', 'assets/pack.json', 'Preload');
     };
     Preload.prototype.createBackground = function (bgColor) {
         this.cameras.main.setBackgroundColor(bgColor);

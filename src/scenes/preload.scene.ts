@@ -14,14 +14,12 @@ export default class Preload extends Phaser.Scene {
     }
 
     preload() {
-        // create background and prepare loading bar
         this.createBackground(0x2a0503);
         this.loadFullBar();
 
     }
 
     create()  {
-        // this.add.text(100, 100, "You got my honey", { fontSize: '32px', fill: '#fff'});
         this.initRegistry();
         this.launchScenes();
 
@@ -68,7 +66,7 @@ export default class Preload extends Phaser.Scene {
             this.loadText.destroy();
         }, this);
 
-        // this.load.pack('Preload', 'assets/pack.json', 'Preload');
+        this.load.pack('Preload', 'assets/pack.json', 'Preload');
     }
 
 
