@@ -13,13 +13,13 @@ export default class Preload extends Phaser.Scene {
         super({ key: 'Preload' });
     }
 
-    preload() {
+    preload(): void {
         this.createBackground(0x2a0503);
         this.loadFullBar();
-
+        this.load.pack('Preload', 'assets/pack.json', 'Preload');
     }
 
-    create()  {
+    create(): void  {
         this.initRegistry();
         this.launchScenes();
 

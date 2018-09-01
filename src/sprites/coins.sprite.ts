@@ -1,4 +1,8 @@
 export default class Coins extends Phaser.GameObjects.Sprite {
+    scene;
+    number;
+    sound;
+
     constructor(config) {
         super(config.scene, config.x, config.y, 'atlas', 'coins');
         config.scene.physics.world.enable(this);

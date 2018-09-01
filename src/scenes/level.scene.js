@@ -1,7 +1,10 @@
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -25,18 +28,32 @@ var Level = /** @class */ (function (_super) {
         this.map = this.make.tilemap({ key: load + "Map" });
         this.tileset = this.map.addTilesetImage('tiles');
         this.layer = this.map.createStaticLayer('tileLayer', this.tileset, 0, 0);
-        // this.layer.setCollisionByProperty({ collide: true });
+        this.layer.setCollisionByProperty({ collide: true });
         this.convertObjects();
         var spawn = this.spawnPoints[this.registry.get('spawn')];
-        alert(JSON.stringify(spawn));
+        this.crosshair = this.add.image(0, 0, 'atlas', 'crosshair');
         this.player = new Player({
             scene: this,
             x: spawn.x,
             y: spawn.y
         });
+        this.cameras.main.startFollow(this.player);
+        this.playerAttack = this.add.group(null);
+        this.playerAttack.runChildUpdate = true;
+        this.physics.add.collider(this.player, this.layer);
+        // this.physics.add.collider(this.player, this.enemies, this.playerEnemy);
+        // this.physics.add.collider(this.enemies, this.layer);
+        // this.physics.add.collider(this.enemies, this.enemies);
+        // this.physics.add.collider();
+        // this.physics.add.collider();
+        // this.physics.add.collider();
+        // this.physics.add.collider();
+        // this.physics.add.collider();
+        //
         this.newGame();
     };
     Level.prototype.update = function () {
+        this.player.update();
     };
     /* ***************** */
     // General Methods

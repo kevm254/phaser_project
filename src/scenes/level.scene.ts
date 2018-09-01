@@ -11,12 +11,14 @@ import BaseSound = Phaser.Sound.BaseSound;
 import Tilemap = Phaser.Tilemaps.Tilemap;
 
 export default class Level extends Phaser.Scene {
+    playerAttack;
     text;
     music: BaseSound;
     map: Tilemap;
     tileset;
     layer;
     player;
+    crosshair;
     spawnPoints: any[] = [];
 
     constructor() {
@@ -31,18 +33,18 @@ export default class Level extends Phaser.Scene {
 
         this.setupMusic();
 
-
         this.map = this.make.tilemap({ key: `${load}Map`});
 
         this.tileset = this.map.addTilesetImage('tiles');
         this.layer = this.map.createStaticLayer('tileLayer', this.tileset, 0, 0);
-        // this.layer.setCollisionByProperty({ collide: true });
+        this.layer.setCollisionByProperty({ collide: true });
 
         this.convertObjects();
 
         let spawn = this.spawnPoints[this.registry.get('spawn')];
 
-        alert(JSON.stringify(spawn));
+        this.crosshair = this.add.image(0, 0, 'atlas', 'crosshair');
+
 
         this.player = new Player({
             scene: this,
@@ -50,16 +52,32 @@ export default class Level extends Phaser.Scene {
             y: spawn.y
         });
 
-        this.newGame();
+        this.cameras.main.startFollow(this.player);
+    this.playerAttack = this.add.group(null);
+    this.playerAttack.runChildUpdate = true;
+
+    this.physics.add.collider(this.player, this.layer);
+    // this.physics.add.collider(this.player, this.enemies, this.playerEnemy);
+    // this.physics.add.collider(this.enemies, this.layer);
+    // this.physics.add.collider(this.enemies, this.enemies);
+    // this.physics.add.collider();
+    // this.physics.add.collider();
+    // this.physics.add.collider();
+    // this.physics.add.collider();
+    // this.physics.add.collider();
+    //
+    this.newGame();
     }
 
     update() {
+        this.player.update();
 
     }
 
     /* ***************** */
     // General Methods
     /* ***************** */
+
     setupMusic() {
         let load = this.registry.get('load');
         // this.music = this.sound.add(`${load}Music`);
